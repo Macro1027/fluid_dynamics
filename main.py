@@ -29,7 +29,7 @@ def main():
     # STREAMLIT SETTINGS
     st.title("Lattice Boltzmann Method")
     st.write("This is a simulation of fluid movement")
-    shape_select = st.selectbox("Select a shape", ["Circle", "Bullet", "Cow"])
+    shape_select = st.selectbox("Select a shape", ["Circle", "Square", "Bullet","Cow"])
     
 
     # Check for plot placeholder
@@ -101,12 +101,11 @@ def main():
     # Boundary conditions
     radius = 13
 
-    if shape_select == "Circle":
+    if shape_select in ["Square", "Bullet", "Cow"]:
+        shape = create_from_img(f"images/{shape_select.lower()}.png", Ny, Nx, y=0, x=50, radius=100)
+    else:
         shape = create_cylinder(Ny, Nx, 13)
-    elif shape_select == "Bullet":
-        shape = create_from_img("bullet.png", Ny, Nx, y=0, x=100, radius=100)
-    elif shape_select == "Cow":
-        shape = create_from_img("cow.png", Ny, Nx, y=0, x=100, radius=100)
+
     
     # Create a placeholder for the plot
     st.session_state['plot_placeholder'] = st.empty()
